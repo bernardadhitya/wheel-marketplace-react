@@ -1,0 +1,65 @@
+.transaction-card{
+  margin: 15px;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -webkit-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -moz-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+}
+
+.transaction-card .restrict-height{
+  height: 120px;
+}
+
+.transaction-content{
+  padding: 30px 20px;
+}
+
+.transaction-card .transaction-name{
+  font-weight: 500;
+  text-transform: capitalize;
+  overflow: hidden;
+}
+
+.transaction-card .transaction-rating{
+  display: flex;
+  align-items: center;
+}
+
+.transaction-card .restrict-height .image-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 40px;
+  background-color: rgb(220, 220, 220);
+  margin-top: 25px;
+}
+
+.transaction-card .image-thumbnail {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  background-color: rgb(220, 220, 220);
+  margin-top: 25px;
+}
+
+.transaction-card .image-thumbnail-empty {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 40px;
+  background-color: rgb(220, 220, 220);
+}
+
+.transaction-card .transaction-source {
+  height: 24px;
+  margin: 10px 0 0 0;
+  align-items: right;
+}
+
+.transaction-price {
+  font-weight: 650;
+  color: #57946C;
+  margin: 10px 0;
+  font-size: 22px;
+}

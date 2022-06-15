@@ -1,0 +1,46 @@
+.login-page{
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-family: 'Avenir-Next';
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url('../../Assets/images/login-background.png');
+}
+.login-btn{
+  background-color: #FF9900;
+  padding: 16px 4px;
+  cursor: pointer;
+  border-radius: 4px;
+  color: #ffffff
+}
+
+.login-card{
+  background-color: #ffffff;
+  width: 350px;
+  padding: 20px;
+  border-radius: 20px;
+  -webkit-box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.25);
+  box-shadow: 0px 4px 20px 0px rgba(0,0,0,0.25);
+}
+
+.form-item{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.plants-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-container{
+  justify-content: center;
+  text-align: center;
+  padding: 100px 60px;
+}

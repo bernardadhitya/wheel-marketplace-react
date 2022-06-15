@@ -1,0 +1,58 @@
+@font-face {
+  font-family: Avenir-Next;
+  src: url(../../Assets/fonts/avenir_next.otf);
+}
+
+.product-manager-page-wrapper {
+  margin: 100px 0 0 0;
+}
+
+.product-manager-section-wrapper {
+  background-image: url('../../Assets/images/home-section-banner.png');
+  padding: 80px 40px;
+  padding-left: 40%;
+  background-size: cover;
+  background-repeat:no-repeat;
+  border-radius: 10px;
+  box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -webkit-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -moz-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+}
+
+.product-manager-banner-wrapper {
+  background-image: url('../../Assets/images/home-banner.png');
+  width: 100%;
+  padding: 100px 0;
+  background-size: cover;
+  background-repeat:no-repeat;
+}
+
+.product-manager-redirect-button {
+  width: 150px;
+  margin: 20px 8px 4px 8px;
+  padding: 0 8px 0 8px;
+  border-radius: 40px;
+  background-color: #FFFFFF;
+  color: #FF9900;
+  border: 1px solid #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -webkit-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+  -moz-box-shadow: 0px 2px 9px 4px rgba(216,216,216,0.5);
+}
+
+.more-button {
+  display: flex;
+  margin: 40px 0 0 0;
+  border: 1px solid rgba(0,0,0,0.2);
+  color: rgba(0,0,0,0.7);
+  border-radius: 8px;
+  justify-content: center;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+  padding: 15px 0;
+}
