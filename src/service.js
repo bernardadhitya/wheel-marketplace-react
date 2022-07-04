@@ -94,7 +94,7 @@ export const getProductsByTitle = async (searchString) => {
 export const getProductById = async (productId) => {
   const response = await db.collection('items').doc(productId).get();
   const responseId = response.id;
-  const responseData = response.data();
+  const responseData = response.data();f
   return { productId: responseId, ...responseData};
 }
 
