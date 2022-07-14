@@ -101,6 +101,66 @@ const AddProductModal = (props) => {
         </Grid>
       </Grid>
       <Grid container spacing={1}>
+        <Grid item xs={3}>
+          <h4>Tire Diameter</h4>
+        </Grid>
+        <Grid item xs={3}>
+          <h4>Tire Width</h4>
+        </Grid>
+        <Grid item xs={3}>
+          <h4>Tire Profile</h4>
+        </Grid>
+        <Grid item xs={3}>
+          
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            type="number"
+            label="tire diameter"
+            variant="outlined"
+            fullWidth
+            // onChange={e => {setDiameter(e.target.value)}}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            type="number"
+            label="tire width"
+            variant="outlined"
+            fullWidth
+            // onChange={e => {setWidth(e.target.value)}}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <TextField
+            type="number"
+            label="tire profile"
+            variant="outlined"
+            fullWidth
+            // onChange={e => {setOffset(e.target.value)}}
+          />
+        </Grid>
+        <Grid item xs={3}>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <h4>Description</h4>
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
+          <TextField
+            label="Description"
+            variant="outlined"
+            multiline
+            rows={4}
+            fullWidth
+            // onChange={e => {setOffset(e.target.value)}}
+          />
+        </Grid>
+      </Grid>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <h4>Image</h4>
         </Grid>

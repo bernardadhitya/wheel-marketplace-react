@@ -2,6 +2,7 @@ import firebase from 'firebase';
 import 'firebase/firestore';
 import 'firebase/auth';
 import { firebaseConfig } from './env';
+import Moment from 'moment';
 
 firebase.initializeApp(firebaseConfig);
 export const fireAuth = firebase.auth();
@@ -94,7 +95,7 @@ export const getProductsByTitle = async (searchString) => {
 export const getProductById = async (productId) => {
   const response = await db.collection('items').doc(productId).get();
   const responseId = response.id;
-  const responseData = response.data();f
+  const responseData = response.data();
   return { productId: responseId, ...responseData};
 }
 
@@ -154,4 +155,72 @@ export const getImageByItemId = async (itemId) => {
   } catch (error) {
     return '';
   }
+}
+
+export const getChats = async (senderId, receiverId) => {
+  console.log("sender id:", senderId)
+  console.log("receiver id:", receiverId)
+  const response_pos = await db.collection('chats')
+    .where('senderId', '==', senderId)
+    .where('receiverId', '==', receiverId)
+    .get();
+  const response_neg = await db.collection('chats')
+    .where('receiverId', '==', senderId)
+    .where('senderId', '==', receiverId)
+    .get();
+  const data_pos = response_pos.docs.map(doc => {
+    const responseId = doc.id;
+    const responseData = doc.data();
+    return { chat_id: responseId, ...responseData }
+  });
+  const data_neg = response_neg.docs.map(doc => {
+    const responseId = doc.id;
+    const responseData = doc.data();
+    return { chat_id: responseId, ...responseData }
+  });
+  const data = [...data_neg, ...data_pos];
+  const chatData = data.sort((a,b) => {
+    const a_moment = new Moment(a['timestamp'])
+    const b_moment = new Moment(b['timestamp'])
+    console.log(a_moment)
+    // console.log(a['timestamp'].toDate().toDateString())
+    return a_moment - b_moment
+  }) // ????
+  console.log('CHAT DATA ->', chatData)
+  return chatData;
+}
+
+export const sendChat = async (chatData) => {
+  const { senderId, receiverId, senderName, receiverName, message } = chatData;
+  const timestamp = new Date()
+  const chat = await db.collection('chats').add({
+    senderId, receiverId, senderName, receiverName, message, timestamp
+  });
+  return chat
+}
+
+export const getChatList = async (userId) => {
+  const response_sender = await db.collection('chats')
+    .where('senderId', '==', userId)
+    .get();
+  const response_receiver = await db.collection('chats')
+    .where('receiverId', '==', userId)
+    .get();
+  const data_sender = response_sender.docs.map(doc => {
+    const responseId = doc.id;
+    const responseData = doc.data();
+    return { chat_id: responseId, ...responseData }
+  });
+  const data_receiver = response_receiver.docs.map(doc => {
+    const responseId = doc.id;
+    const responseData = doc.data();
+    return { chat_id: responseId, ...responseData }
+  });
+  const data = [...data_sender, ...data_receiver];
+
+  const result = data.map((chatItem) => {
+    const name = chatItem.senderId === userId ? chatItem.senderName : chatItem.receiverName
+    return {...chatItem, name}
+  })
+  return result
 }

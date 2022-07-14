@@ -97,6 +97,30 @@ const Calculator = () => {
                 onChange={e => {setOffset(e.target.value)}}
               />
             </Grid>
+            <Grid item xs={2}>
+              <img src={require("../../Assets/images/icon-tire.webp")} alt="wheel.png" />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Tire Diameter"
+                variant="outlined"
+                // onChange={e => {setDiameter(e.target.value)}}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Tire Width"
+                variant="outlined"
+                // onChange={e => {setWidth(e.target.value)}}
+              />
+            </Grid>
+            <Grid item xs={3}>
+              <TextField
+                label="Tire Profile"
+                variant="outlined"
+                // onChange={e => {setOffset(e.target.value)}}
+              />
+            </Grid>
           </Grid>
         </div>
       </Grid>

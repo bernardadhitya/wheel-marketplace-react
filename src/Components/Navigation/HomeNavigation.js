@@ -6,6 +6,7 @@ import PublicRoute from './PublicRoute';
 import Register from '../../Containers/Register/Register';
 import HomePage from '../../Containers/HomePage/HomePage';
 import ProductManagerPage from '../../Containers/ProductManagerPage/ProductManagerPage';
+import ChatPage from '../../Containers/ChatPage/ChatPage';
 
 const HomeNavigation = () => {
   return (
@@ -16,6 +17,7 @@ const HomeNavigation = () => {
       <PublicRoute path='/login' component={Login}/>
       <PublicRoute path='/register' component={Register}/>
       <PublicRoute path='/dashboard' component={ProductManagerPage}/>
+      <PublicRoute path='/chat' component={ChatPage}/>
     </Switch>
   );
 };

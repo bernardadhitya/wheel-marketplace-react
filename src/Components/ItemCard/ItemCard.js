@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { formattedCurrency } from '../../Constants/format';
 import './ItemCard.css';
 import { getImageByItemId, getUserById } from '../../service';
+import { useHistory } from 'react-router-dom';
 
 const ItemCard = (props) => {
   const {
@@ -13,6 +14,8 @@ const ItemCard = (props) => {
     details,
     onDelete,
   } = props;
+
+  const history = useHistory()
 
   const [sellerPhone, setSellerPhone] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -31,7 +34,8 @@ const ItemCard = (props) => {
 
   const handleClick = async () => {
     if (!!!onDelete) {
-      window.open(`https://wa.me/${sellerPhone}`);
+      //window.open(`https://wa.me/${sellerPhone}`);
+      history.push('/chat')
     }
   }
 
