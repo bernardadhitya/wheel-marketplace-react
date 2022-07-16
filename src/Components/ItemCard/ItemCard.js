@@ -75,11 +75,11 @@ const ItemCard = (props) => {
         <Delete color="error"/>
       </IconButton>
     </> : <>
-      <img
+      {/*<img
         src={require('../../Assets/images/icon-whatsapp.png')}
         style={{height: '30px', cursor: 'pointer'}}
         alt=''
-      />
+      />*/}
     </>
   }
 
@@ -95,16 +95,16 @@ const ItemCard = (props) => {
         </div>
         <div className='item-content'>
           <div className='item-title'>{getFullProductName()}</div>
+          <p>{details.description}</p>
           <p style={{color: '#FF9900'}}>{details.carType}</p>
-          <Grid container>
-            <Grid xs={9}>
-              <div className='item-price'>{formattedCurrency(price)}</div>
-            </Grid>
-            <Grid xs={3}>
-              {renderActionIcons()}
-            </Grid>
-          </Grid>
-          
+          <div className='item-price'>{formattedCurrency(price)}</div>
+          {renderActionIcons()}
+          <div
+            className='calculator-submit-button'
+            onClick={() => handleClick()}
+          >
+            <h4>Chat Seller Now!</h4>
+          </div>
         </div>
       </div>
     </Grid>

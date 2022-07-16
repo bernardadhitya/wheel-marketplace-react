@@ -25,13 +25,14 @@ const AddProductModal = (props) => {
   const [price, setPrice] = useState(null);
   const [image, setImage] = useState("");
   const [carType, setCarType] = useState("City Car");
+  const [description, setDescription] = useState("");
 
   const handleImageAsFile = (e) => {
     setImage(e.target.files[0]);
   }
 
   const handleSubmitItem = () => {
-    handleAddNewProduct(title,diameter,width,offset,price,image,carType);
+    handleAddNewProduct(title,diameter,width,offset,price,image,carType,description);
     handleCloseModal();
   }
 
@@ -168,10 +169,11 @@ const AddProductModal = (props) => {
           <TextField
             label="Description"
             variant="outlined"
+            value={description}
             multiline
             rows={4}
             fullWidth
-            // onChange={e => {setOffset(e.target.value)}}
+            onChange={e => {setDescription(e.target.value)}}
           />
         </Grid>
       </Grid>

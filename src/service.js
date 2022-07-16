@@ -126,7 +126,7 @@ export const getProductsByTitlePaginated =  async (searchString, carType) => {
 }
 
 export const createProduct = async (productData, image) => {
-  const { seller_id, title, diameter, width, offset, price, filePath, carType } = productData;
+  const { seller_id, title, diameter, width, offset, price, filePath, carType, description } = productData;
 
   const item = await db.collection('items').add({
     seller_id,
@@ -136,7 +136,8 @@ export const createProduct = async (productData, image) => {
     offset,
     price,
     filePath,
-    carType
+    carType,
+    description,
   });
   await uploadImage(image, item);
 
