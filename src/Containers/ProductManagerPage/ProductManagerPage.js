@@ -80,7 +80,7 @@ const ProductManagerPage = () => {
     </div>
   }
 
-  const handleAddNewProduct = async (title,diameter,width,offset,price,image) => {
+  const handleAddNewProduct = async (title,diameter,width,offset,price,image,carType) => {
     const fetchedCurrentUser = await fetchCurrentUser();
     const itemData = {
       seller_id: fetchedCurrentUser.userId,
@@ -90,6 +90,7 @@ const ProductManagerPage = () => {
       offset,
       price,
       filePath: image !== '' ? image.name : '',
+      carType
     }
     await createProduct(itemData, image);
   }

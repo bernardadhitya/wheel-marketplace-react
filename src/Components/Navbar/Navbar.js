@@ -193,7 +193,16 @@ const Navbar = () => {
   return (
     <>
     <div class="navbar-full-wrapper">
-      <div style={{width: '300px', cursor: 'pointer', backgroundColor: 'white', borderBottom: '1px solid rgba(0,0,0,0.1)'}} onClick={() => history.push('/')}/>
+      <div style={{
+        width: '300px',
+        cursor: 'pointer',
+        backgroundColor: 'white',
+        borderBottom: '1px solid rgba(0,0,0,0.1)',
+        paddingLeft: '30px',
+        color: '#FF9900'
+      }} onClick={() => history.push('/')}>
+        <h1>WheelFit</h1>
+      </div>
       <div class="navbar-wrapper">
         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
           <div

@@ -1,5 +1,5 @@
 import {
-  Grid
+  Grid, MenuItem, Select
 } from '@material-ui/core';
 import React, {useState, useEffect} from 'react';
 import { useHistory, useLocation } from 'react-router';
@@ -18,6 +18,7 @@ const SearchPage = () => {
 
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
+  const [carType, setCarType] = useState("None");
 
   const queries = qs.parse(location.search);
 
@@ -26,12 +27,11 @@ const SearchPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const fetchedItems = _.isEmpty(queries) ? 
-        await getAllProductsPaginated() : await getProductsByTitlePaginated(queries.query);
-
+        await getAllProductsPaginated(carType) : await getProductsByTitlePaginated(queries.query, carType);
       setItems(fetchedItems);
     }
     fetchData();
-  }, [location, queries]);
+  }, [queries]);
 
   const renderItemCards = () => {
     return items.length > 0 ? (
@@ -72,7 +72,23 @@ const SearchPage = () => {
               <SearchBar handleSearch={(value) => handleSearch(value)}/>
             </div>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={3}></Grid>
+          <Grid item xs={3}>
+            <p>Filter by:</p>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={carType}
+              label="Age"
+              fullWidth
+              variant="outlined"
+              onChange={e => {setCarType(e.target.value)}}
+            >
+              <MenuItem value="None">None</MenuItem>
+              <MenuItem value="City Car">City Car</MenuItem>
+              <MenuItem value="Sedan">Sedan</MenuItem>
+              <MenuItem value="SUV">SUV</MenuItem>
+            </Select>
           </Grid>
           <Grid item xs={8}>
             {

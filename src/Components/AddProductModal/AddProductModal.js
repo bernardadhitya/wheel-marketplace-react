@@ -1,4 +1,4 @@
-import { Grid, makeStyles, TextField } from '@material-ui/core';
+import { Grid, makeStyles, MenuItem, Select, TextField } from '@material-ui/core';
 import React, { useState } from 'react';
 import './AddProductModal.css';
 
@@ -24,13 +24,14 @@ const AddProductModal = (props) => {
   const [offset, setOffset] = useState(null);
   const [price, setPrice] = useState(null);
   const [image, setImage] = useState("");
+  const [carType, setCarType] = useState("City Car");
 
   const handleImageAsFile = (e) => {
     setImage(e.target.files[0]);
   }
 
   const handleSubmitItem = () => {
-    handleAddNewProduct(title,diameter,width,offset,price,image);
+    handleAddNewProduct(title,diameter,width,offset,price,image,carType);
     handleCloseModal();
   }
 
@@ -111,7 +112,7 @@ const AddProductModal = (props) => {
           <h4>Tire Profile</h4>
         </Grid>
         <Grid item xs={3}>
-          
+          <h4>Car Type</h4>
         </Grid>
         <Grid item xs={3}>
           <TextField
@@ -141,6 +142,20 @@ const AddProductModal = (props) => {
           />
         </Grid>
         <Grid item xs={3}>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={carType}
+            label="Age"
+            fullWidth
+            variant="outlined"
+            onChange={e => {setCarType(e.target.value)}}
+          >
+            <MenuItem value="City Car">City Car</MenuItem>
+            <MenuItem value="Sedan">Sedan</MenuItem>
+            <MenuItem value="SUV">SUV</MenuItem>
+          </Select>
+
         </Grid>
       </Grid>
       <Grid container spacing={1}>

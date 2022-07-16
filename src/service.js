@@ -99,26 +99,34 @@ export const getProductById = async (productId) => {
   return { productId: responseId, ...responseData};
 }
 
-export const getAllProductsPaginated =  async () => {
+export const getAllProductsPaginated =  async (carType) => {
   const products = await getAllProducts();
+  let filteredProducts = products
+  if (carType !== "None"){
+    filteredProducts = filteredProducts.filter(product => product.carType === carType);
+  }
   let paginatedProducts = []
-  while (products.length > 0){
-    paginatedProducts.push(products.splice(0,20));
+  while (filteredProducts.length > 0){
+    paginatedProducts.push(filteredProducts.splice(0,20));
   }
   return paginatedProducts;
 }
 
-export const getProductsByTitlePaginated =  async (searchString) => {
+export const getProductsByTitlePaginated =  async (searchString, carType) => {
   const products = await getProductsByTitle(searchString);
+  let filteredProducts = products
+  if (carType !== "None"){
+    filteredProducts = filteredProducts.filter(product => product.carType === carType);
+  }
   let paginatedProducts = []
-  while (products.length > 0){
-    paginatedProducts.push(products.splice(0,20));
+  while (filteredProducts.length > 0){
+    paginatedProducts.push(filteredProducts.splice(0,20));
   }
   return paginatedProducts;
 }
 
 export const createProduct = async (productData, image) => {
-  const { seller_id, title, diameter, width, offset, price, filePath } = productData;
+  const { seller_id, title, diameter, width, offset, price, filePath, carType } = productData;
 
   const item = await db.collection('items').add({
     seller_id,
@@ -127,7 +135,8 @@ export const createProduct = async (productData, image) => {
     width,
     offset,
     price,
-    filePath
+    filePath,
+    carType
   });
   await uploadImage(image, item);
 

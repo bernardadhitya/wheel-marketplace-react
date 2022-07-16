@@ -10,6 +10,7 @@ const ItemCard = (props) => {
   const {
     productId,
     title,
+    carType,
     price,
     details,
     onDelete,
@@ -94,6 +95,7 @@ const ItemCard = (props) => {
         </div>
         <div className='item-content'>
           <div className='item-title'>{getFullProductName()}</div>
+          <p style={{color: '#FF9900'}}>{details.carType}</p>
           <Grid container>
             <Grid xs={9}>
               <div className='item-price'>{formattedCurrency(price)}</div>
