@@ -81,6 +81,10 @@ const Navbar = () => {
     history.push('/dashboard');
   }
 
+  const handleRedirectChat = async () => {
+    history.push('/chat');
+  }
+
   const renderLoginPrompt = () => {
     const messageAndPrompt = {
       login: {
@@ -170,6 +174,10 @@ const Navbar = () => {
             </div>
             <StyledMenuItem onClick={() => handleRedirectDashboard()}>
               <ListItemText primary="Dashboard" />
+              <ListItemIcon/>
+            </StyledMenuItem>
+            <StyledMenuItem onClick={() => handleRedirectChat()}>
+              <ListItemText primary="Chat" />
               <ListItemIcon/>
             </StyledMenuItem>
             <StyledMenuItem onClick={() => handleLogout()}>

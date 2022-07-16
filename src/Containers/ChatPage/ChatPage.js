@@ -10,8 +10,6 @@ const ChatPage = () => {
   const [chats, setChats] = useState([]);
   const [chatList, setChatList] = useState([]);
   const [message, setMessage] = useState('');
-  const [receiverId, setReceiverId] = useState(null);
-  const [senderId, setSenderId] = useState(null);
   const [selectedChatUser, setSelectedClientChat] = useState(0);
 
   useEffect(() => {
@@ -22,18 +20,17 @@ const ChatPage = () => {
           let fetchedChatList = [];
           console.log(fetchedCurrentUser.userId)
           fetchedChatList = await getChatList(fetchedCurrentUser.userId);
+          console.log("chat list:", fetchedChatList)
           
           
           setChatList(fetchedChatList);
-          setReceiverId(fetchedChatList[selectedChatUser].id);
-          setSenderId(fetchedCurrentUser.id);
 
           setCurrentUser(fetchedCurrentUser);
 
           if (fetchedChatList.length > 0){
             const fetchedChats = await getChats(
-              fetchedChatList[selectedChatUser].senderId,
-              fetchedChatList[selectedChatUser].receiverId
+              fetchedCurrentUser.userId,
+              fetchedChatList[selectedChatUser].id
               );
             setChats(fetchedChats);
           }
@@ -46,18 +43,16 @@ const ChatPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       if (currentUser === null) return;
-      const fetchedChats = await getChats(chatList[selectedChatUser].id, currentUser.id);
+      const fetchedChats = await getChats(chatList[selectedChatUser].id, currentUser.userId);
 
       setChats(fetchedChats);
-      setReceiverId(chatList[selectedChatUser].id);
-      setSenderId(currentUser.id);
     }
     fetchData();
   }, [selectedChatUser]);
 
   const renderChatList = () => {
     return chatList.map((chatItem, idx) => {
-      const { name, message: messageChat } = chatItem;
+      const { name } = chatItem;
       return <Grid item xs={12}>
         <div
           style={{
@@ -77,7 +72,7 @@ const ChatPage = () => {
             marginLeft: '20px'
           }}>
             <h3>{name}</h3>
-            <p>{`${messageChat.slice(0,18)}...`}</p>
+            {/*<p>{`${messageChat.slice(0,18)}...`}</p>*/}
           </div>
         </div>
       </Grid>
@@ -99,11 +94,9 @@ const ChatPage = () => {
   const handleSendChat = async () => {
     const chatData = {
       senderId: currentUser.userId,
-      receiverId: chatList[selectedChatUser].receiverId !== currentUser.userId ?
-        chatList[selectedChatUser].receiverId : chatList[selectedChatUser].senderId,
+      receiverId: chatList[selectedChatUser].id,
       senderName: currentUser.name,
-      receiverName: chatList[selectedChatUser].receiverId !== currentUser.userId ?
-        chatList[selectedChatUser].receiverName : chatList[selectedChatUser].senderName,
+      receiverName: chatList[selectedChatUser].name,
       message: message
     };
     await sendChat(chatData);

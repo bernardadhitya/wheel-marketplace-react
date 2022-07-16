@@ -3,7 +3,7 @@ import { Delete } from '@material-ui/icons';
 import React, { useEffect, useState } from 'react';
 import { formattedCurrency } from '../../Constants/format';
 import './ItemCard.css';
-import { getImageByItemId, getUserById } from '../../service';
+import { fetchCurrentUser, getImageByItemId, getUserById, sendChat } from '../../service';
 import { useHistory } from 'react-router-dom';
 
 const ItemCard = (props) => {
@@ -19,6 +19,8 @@ const ItemCard = (props) => {
 
   const [sellerPhone, setSellerPhone] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [clicked, setClicked] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,10 +34,32 @@ const ItemCard = (props) => {
     fetchData();
   }, [details, productId]);
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (clicked === 0) return;
+      const fetchedCurrentUser = await fetchCurrentUser();
+      const { seller_id } = details;
+      const fetchedSeller = await getUserById(seller_id);
+
+      const chatData = {
+        senderId: fetchedCurrentUser.userId, 
+        receiverId: details.seller_id,
+        senderName: fetchedCurrentUser.name,
+        receiverName: fetchedSeller.name,
+        message: "Hi"
+      }
+
+      await sendChat(chatData);
+      setClicked(0);
+      history.push('/chat');
+    }
+    fetchData();
+  }, [clicked]);
+
   const handleClick = async () => {
     if (!!!onDelete) {
       //window.open(`https://wa.me/${sellerPhone}`);
-      history.push('/chat')
+      setClicked(clicked + 1);
     }
   }
 

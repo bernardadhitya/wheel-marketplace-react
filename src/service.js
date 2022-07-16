@@ -160,31 +160,29 @@ export const getImageByItemId = async (itemId) => {
 export const getChats = async (senderId, receiverId) => {
   console.log("sender id:", senderId)
   console.log("receiver id:", receiverId)
-  const response_pos = await db.collection('chats')
-    .where('senderId', '==', senderId)
-    .where('receiverId', '==', receiverId)
+
+  const response = await db.collection('chats')
+    .orderBy('timestamp')
     .get();
-  const response_neg = await db.collection('chats')
-    .where('receiverId', '==', senderId)
-    .where('senderId', '==', receiverId)
-    .get();
-  const data_pos = response_pos.docs.map(doc => {
+
+  const data = response.docs.map(doc => {
     const responseId = doc.id;
     const responseData = doc.data();
     return { chat_id: responseId, ...responseData }
   });
-  const data_neg = response_neg.docs.map(doc => {
-    const responseId = doc.id;
-    const responseData = doc.data();
-    return { chat_id: responseId, ...responseData }
-  });
-  const data = [...data_neg, ...data_pos];
-  const chatData = data.sort((a,b) => {
-    const a_moment = new Moment(a['timestamp'])
-    const b_moment = new Moment(b['timestamp'])
-    console.log(a_moment)
-    // console.log(a['timestamp'].toDate().toDateString())
-    return a_moment - b_moment
+
+  const chatData = data.filter((item) => {
+    if (item.senderId === senderId){
+      if (item.receiverId === receiverId){
+        return true
+      }
+    } else if (item.senderId === receiverId){
+      if (item.receiverId === senderId){
+        return true
+      }
+    } else {
+      return false
+    }
   }) // ????
   console.log('CHAT DATA ->', chatData)
   return chatData;
@@ -218,9 +216,26 @@ export const getChatList = async (userId) => {
   });
   const data = [...data_sender, ...data_receiver];
 
-  const result = data.map((chatItem) => {
-    const name = chatItem.senderId === userId ? chatItem.senderName : chatItem.receiverName
-    return {...chatItem, name}
+  // const result = data.map((chatItem) => {
+  //   const name = chatItem.senderId === userId ? chatItem.senderName : chatItem.receiverName
+  //   return {...chatItem, name}
+  // })
+
+  console.log("data from weird query:", data)
+
+  const result = []
+  const ids = []
+  data.forEach(chatItem => {
+    console.log(chatItem)
+    const { senderId, receiverId, senderName, receiverName } = chatItem;
+    if (!(ids.includes(senderId)) && senderId !== userId){
+      result.push({id: senderId, name: senderName})
+      ids.push(senderId)
+    }
+    if (!(ids.includes(receiverId)) && receiverId !== userId){
+      result.push({id: receiverId, name: receiverName})
+      ids.push(receiverId)
+    }
   })
   return result
 }
